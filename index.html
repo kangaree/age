@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Slider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .slider-container {
+            margin-bottom: 20px;
+        }
+        .slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .milestones {
+            list-style-type: none;
+            padding: 0;
+        }
+        .milestone {
+            margin: 5px 0;
+        }
+        .milestone span {
+            font-weight: bold;
+        }
+        .milestone-description {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age</h1>
+        <div class="slider-container">
+            <label for="ageSlider">Select your age:</label>
+            <p>Age: <span id="ageValue">0</span> years</p>
+            <input type="range" id="ageSlider" class="slider" min="0" max="125" value="0">
+        </div>
+        <ul id="milestones" class="milestones"></ul>
+    </div>
+
+    <script>
+        const milestonesData = [
+            { age: 0, description: "Newborn; age of legal personhood" },
+            { age: 1, description: "First birthday; often marked by developmental milestones" },
+            { age: 2, description: "Toddlers begin to show significant growth in motor skills and language" },
+            { age: 3, description: "Many start preschool" },
+            { age: 5, description: "Start kindergarten, often considered the start of formal education" },
+            { age: 6, description: "Begin elementary school (1st grade)" },
+            { age: 7, description: "Begin 2nd grade; first standardized testing in some places" },
+            { age: 8, description: "Often recognized for developing more complex social skills" },
+            { age: 10, description: "Enter double digits, often a significant milestone for kids" },
+            { age: 11, description: "Start middle school (6th grade) in many school systems" },
+            { age: 12, description: "Start puberty for many; experience significant physical and emotional changes" },
+            { age: 13, description: "Enter teenage years; officially a teenager" },
+            { age: 14, description: "Start high school (9th grade). Can obtain a learner's permit for driving in many states" },
+            { age: 15, description: "Eligible for a full driver's license in some states" },
+            { age: 16, description: "Can legally drive alone with a full license in many states" },
+            { age: 17, description: "Eligible to work full-time (in many states); Can see R-rated movies alone." },
+            { age: 18, description: "Legal adulthood; can vote, join the military, sign contracts, and more; can also buy tobacco products in some states" },
+            { age: 19, description: "Often required to start repaying student loans if enrolled in college" },
+            { age: 21, description: "Legal drinking age; can purchase alcohol and gamble in most states" },
+            { age: 22, description: "Often graduate from college or university" },
+            { age: 25, description: "Can rent a car without additional fees; many consider this age to be a milestone for financial responsibility" },
+            { age: 30, description: "Can become a Senator" },
+            { age: 35, description: "Can become President" },
+            { age: 40, description: "Milestone birthday often associated with midlife reflection" },
+            { age: 45, description: "Common age for significant life evaluations or career changes" },
+            { age: 50, description: "Eligible to join AARP (American Association of Retired Persons); considered a milestone for retirement planning" },
+            { age: 55, description: "Sometimes seen as the beginning of senior discounts and early retirement options" },
+            { age: 60, description: "Eligible for Social Security benefits (though full retirement age may be later)" },
+            { age: 62, description: "Can get an $80 national parks lifetime pass. Early eligibility for Social Security retirement benefits" },
+            { age: 65, description: "Eligibility for Medicare; traditional retirement age for Social Security benefits" },
+            { age: 67, description: "Full retirement age for Social Security benefits for those born in 1960 or later" },
+            { age: 70, description: "Mandatory age for starting to take Social Security benefits if you haven't already" },
+            { age: 75, description: "Often marks a significant milestone in senior health assessments" },
+            { age: 80, description: "Considered a significant milestone in terms of health and longevity" },
+            { age: 90, description: "Significant milestone in longevity and often marked with celebrations" },
+            { age: 100, description: "100th birthday" },
+            { age: 110, description: "Supercentenarian milestone, only a few reach this age" },
+            { age: 123, description: "Oldest person ever, beating Jeanne Calment (122 years)" }
+        ];
+
+        const ageSlider = document.getElementById('ageSlider');
+        const ageValue = document.getElementById('ageValue');
+        const milestonesList = document.getElementById('milestones');
+
+        function updateMilestones(age) {
+            milestonesList.innerHTML = ''; // Clear existing milestones
+            const milestones = milestonesData.filter(m => m.age <= age);
+            milestones.forEach((m, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'milestone';
+                listItem.innerHTML = `<span>${m.age} years old:</span> <span class="milestone-description">${m.description}</span>`;
+                
+                if (index === 0) {
+                    milestonesList.appendChild(listItem); // Append the first milestone
+                } else {
+                    milestonesList.insertBefore(listItem, milestonesList.firstChild); // Prepend subsequent milestones
+                }
+            });
+        }
+
+        ageSlider.addEventListener('input', function() {
+            const age = this.value;
+            ageValue.textContent = age;
+            updateMilestones(age);
+        });
+
+        // Initial call to populate milestones
+        updateMilestones(ageSlider.value);
+    </script>
+</body>
+</html>
